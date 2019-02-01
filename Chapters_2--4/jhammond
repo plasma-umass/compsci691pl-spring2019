@@ -1,0 +1,1 @@
+Exercise: Write your own version of the function filter: (a -> Bool) -> List a -> List a. 
