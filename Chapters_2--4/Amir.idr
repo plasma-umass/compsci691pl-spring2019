@@ -14,8 +14,8 @@ insSort : Ord elem => Vect n elem -> Vect n elem
 insSort [] = []
 insSort (x :: xs) = let xsSorted = insSort xs in insert x xsSorted
 
---mergeWithSort--
+--appendWithSort--
 
-mergeWithSort : Ord elem => Vect n elem -> Vect m elem -> Vect (n+m) elem
-mergeWithSort [] ys = ys
-mergeWithSort (x :: xs) ys = let sortedYs = insSort ys in insert x (mergeWithSort xs (sortedYs))
+appendWithSort : Ord elem => Vect n elem -> Vect m elem -> Vect (n+m) elem
+appendWithSort [] ys = ys
+appendWithSort (x :: xs) ys = let sortedYs = insSort ys in insert x (appendWithSort xs (sortedYs))
