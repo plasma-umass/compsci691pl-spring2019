@@ -16,4 +16,4 @@ The goal is to write a program `addMatFiles.idr` which takes as input via comman
 
 Then, the program should read the matrices from the 2 input files, add them together, and then write the result to the destination file.
 
-Note that you should use the matrix addition mentioned in chapter 3 which uses dependent types to endocde the sizes of matrices. Therefore, to perform this addition you will want to use dependent pairs to verify that the two input matrices have the same dimensions.
+Note that you should use the matrix addition mentioned in chapter 3 which uses dependent types to encode the sizes of matrices. Therefore, to perform this addition you will want to use dependent pairs to verify that the two input matrices have the same dimensions.
