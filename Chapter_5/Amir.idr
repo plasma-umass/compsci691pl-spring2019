@@ -7,8 +7,9 @@ data Stack: (elem:Type) -> Type where
 push: elem -> Stack elem -> Stack elem
 push x xs = x :: xs
 
-pop: Stack elem -> (elem, Stack elem)
-pop (x::xs) = (x, xs)
+pop: Stack elem -> Maybe (elem, Stack elem)
+pop EmptyStack = Nothing
+pop (x::xs) = Just ((x, xs))
 
 size: Stack elem -> Nat
 size EmptyStack = Z
@@ -28,8 +29,10 @@ parse : (input : String) -> Maybe Command
 parse input = case span (/= ' ') input of
                                     (cmd, args) => parseCommand cmd (ltrim args)
 
-parsePop: (String, Stack String) -> (String, Stack String)
-parsePop (str, stack) = (str ++ "\n", stack)
+parsePop: Stack String -> (String, Stack String)
+parsePop stack = case pop stack of
+                      Nothing => ("Stack is empty\n", stack)
+                      Just ((str, stack2)) => (str ++ "\n", stack2)
 
 toStr: Stack String -> String
 toStr EmptyStack = ""
@@ -41,9 +44,7 @@ processInput stack input
             Nothing => Just ("Invalid command\n", stack)
             Just (Push item) =>
                   Just (show (S (size stack)) ++ "\n", push item stack)
-            Just Pop => case (size stack) > 0 of
-                                False =>  Just ("Stack is empty\n", stack)
-                                True => Just (parsePop (pop stack))
+            Just Pop => Just (parsePop stack)
             Just End => Nothing
 
 main : IO ()
